@@ -1,0 +1,22 @@
+<header class="shadow-md py-4 bg-white">
+  <div class="container mx-auto flex items-center justify-between min-h-[2rem]">
+    <div class="mr-6">
+      <a href="#" class="brand-logo">Angular <span class="text-blue-500">Blog</span></a>
+    </div>
+    <ng-container *ngIf="loginService.isLoggedIn; else elseBlock">
+      <app-nav-list class="flex-1 flex"></app-nav-list>
+
+      <div class="flex items-center">
+        <!-- <p class="mr-3 text-sm font-medium text-gray-800">User Name</p> -->
+        <button type="button" class="flex items-center focus:outline-none mr-3">
+          <div class="w-8 h-8 overflow-hidden border-2 border-gray-400 rounded-full bg-blue-500"></div>
+        </button>
+        <app-auth-button [btnText]="'Logout'" (click)="onLogOut()"></app-auth-button>
+      </div>
+    </ng-container>
+
+    <ng-template #elseBlock>
+      <app-auth-button [btnText]="'Login'" (click)="onLogin()"></app-auth-button>
+    </ng-template>
+  </div>
+</header>
