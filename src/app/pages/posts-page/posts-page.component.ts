@@ -1,4 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
+
 import { Post } from './models';
 import { PostsService } from './services';
 
@@ -10,19 +13,21 @@ import { PostsService } from './services';
 export class PostsPageComponent implements OnInit, OnDestroy {
   
   data!: Post[];
-  filteredPosts: Post[] = []
+  sub!: Subscription
+
+  searchForm = this.fb.group({
+    query: '',
+  });
+
   
-  constructor(private postsService: PostsService) {}
+  constructor(private postsService: PostsService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.data = this.postsService.getPosts();
-    this.filteredPosts = this.data
-  }
-
-  searchPostTitle(term: string): void {
-    this.filteredPosts = this.data.filter((value) => value ? value.title.toLowerCase().includes(term) : this.filteredPosts);
-  
-    console.log(this.filteredPosts);
+    this.sub = this.searchForm?.valueChanges.subscribe((formValue) => {
+      this.postsService.searchPost(formValue.query)
+      this.data = this.postsService.getPosts()
+    })
   }
 
   onDeletePost(post: Post) {
@@ -30,5 +35,8 @@ export class PostsPageComponent implements OnInit, OnDestroy {
     this.data = this.postsService.getPosts()
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    this.sub?.unsubscribe()
+    this.postsService.resetPosts()
+  }
 }

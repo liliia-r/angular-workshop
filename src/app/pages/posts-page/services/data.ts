@@ -1,4 +1,4 @@
-export const posts = [
+export const POSTS = [
   {
     userId: 1,
     id: 1,
