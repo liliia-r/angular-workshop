@@ -8,12 +8,21 @@ import { PostsService } from './services';
   styleUrls: ['./posts-page.component.scss']
 })
 export class PostsPageComponent implements OnInit, OnDestroy {
+  
   data!: Post[];
+  filteredPosts: Post[] = []
   
   constructor(private postsService: PostsService) {}
 
   ngOnInit(): void {
     this.data = this.postsService.getPosts();
+    this.filteredPosts = this.data
+  }
+
+  searchPostTitle(term: string): void {
+    this.filteredPosts = this.data.filter((value) => value ? value.title.toLowerCase().includes(term) : this.filteredPosts);
+  
+    console.log(this.filteredPosts);
   }
 
   onDeletePost(post: Post) {
