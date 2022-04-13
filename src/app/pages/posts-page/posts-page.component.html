@@ -1,15 +1,48 @@
 <h1 class="page-title">Post</h1>
 
 <form class="relative max-w-lg mb-4 shadow-md" [formGroup]="searchForm">
-  <svg width="20" height="20" fill="currentColor" class="absolute left-3 top-1/2 -mt-2.5 text-slate-400 pointer-events-none group-focus-within:text-blue-500" aria-hidden="true">
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
+  <svg
+    width="20"
+    height="20"
+    fill="currentColor"
+    class="absolute left-3 top-1/2 -mt-2.5 text-slate-400 pointer-events-none group-focus-within:text-blue-500"
+    aria-hidden="true"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+    />
   </svg>
-  <input formControlName="query" id="search-box" class="search-input" type="text" aria-label="Filter projects" placeholder="Filter projects...">
+  <input
+    formControlName="query"
+    id="search-box"
+    class="search-input"
+    type="text"
+    aria-label="Filter projects"
+    placeholder="Filter projects..."
+  />
 </form>
+
+<h2 *ngIf="isLoading$ | async" class="text-2xl text-blue-400 text-center">Loading...</h2>
 
 <app-post-card
   (delete)="onDeletePost($event)"
-  *ngFor="let item of data; even as isEven"
+  *ngFor="let item of data$ | async as posts; even as isEven"
   [item]="item"
   [isEven]="isEven"
 ></app-post-card>
+
+<h2 *ngIf="error$ | async as error" class="text-2xl text-red-700 text-center">{{ error }}</h2>
+
+<!-- <ng-container *ngIf="data; else elseBlock">
+  <app-post-card
+    (delete)="onDeletePost($event)"
+    *ngFor="let item of data; even as isEven"
+    [item]="item"
+    [isEven]="isEven"
+  ></app-post-card>
+</ng-container>
+<ng-template #elseBlock>
+  <h2 class="text-2xl text-red-700 text-center">{{ error }}</h2>
+</ng-template> -->
