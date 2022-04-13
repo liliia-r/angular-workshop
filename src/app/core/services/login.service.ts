@@ -1,20 +1,24 @@
-import { of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  isLoggedIn = false;
-  user$ = of({ id: 1, name: 'Liliia', email: 'test@hmail.com' });
+  public _user$ = new BehaviorSubject({ id: 1, name: '', email: '' });
+  user$ = this._user$.asObservable();
+
+  private _isLoggedIn$ = new BehaviorSubject<boolean>(false);
+  isLoggedIn$ = this._isLoggedIn$.asObservable();
 
   constructor() {}
 
-  login() {
-    this.isLoggedIn = true;
+  login(name: string, email: string) {
+    this._user$.next({ id: 1, name: name, email: email });
+    this._isLoggedIn$.next(true);
   }
 
   logout() {
-    this.isLoggedIn = false;
+    this._isLoggedIn$.next(false);
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../../services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dropdown-menu',
@@ -7,9 +8,9 @@ import { LoginService } from '../../../services/login.service';
   styleUrls: ['./dropdown-menu.component.scss'],
 })
 export class DropdownMenuComponent implements OnInit {
-  user$ = this.loginService.user$;
+  user$ = this.loginService._user$;
 
-  constructor(public loginService: LoginService) {}
+  constructor(public loginService: LoginService, private router: Router) {}
 
   ngOnInit(): void {
     console.log(this.user$);
@@ -17,5 +18,6 @@ export class DropdownMenuComponent implements OnInit {
 
   onLogOut() {
     this.loginService.logout();
+    this.router.navigateByUrl('/');
   }
 }

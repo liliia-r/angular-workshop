@@ -1,16 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Post } from '../models';
-import {
-  BehaviorSubject,
-  catchError,
-  EMPTY,
-  map,
-  tap,
-  throwError,
-  Observable,
-  Subscription,
-} from 'rxjs';
+import { BehaviorSubject, catchError, EMPTY, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

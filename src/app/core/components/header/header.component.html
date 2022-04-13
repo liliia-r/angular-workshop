@@ -4,14 +4,14 @@
       <a href="#" class="brand-logo">Angular <span class="text-blue-500">Blog</span></a>
     </div>
 
-    <ng-container *ngIf="loginService.isLoggedIn; else elseBlock">
+    <ng-container *ngIf="loginService.isLoggedIn$ | async; else elseBlock">
       <app-nav-list class="flex-1 flex"></app-nav-list>
 
       <app-dropdown-menu></app-dropdown-menu>
     </ng-container>
 
     <ng-template #elseBlock>
-      <app-auth-button [btnText]="'Login'" (click)="onLogin()"></app-auth-button>
+      <app-auth-button [btnText]="'Login'"></app-auth-button>
     </ng-template>
   </div>
 </header>

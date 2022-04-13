@@ -9,6 +9,7 @@ import { CoreModule } from './core/core.module';
 
 // Components
 import { AppComponent } from './app.component';
+import { LoginPageModule } from './pages/login-page/login-page.module';
 import { HomePageModule } from './pages/home-page/home-page.module';
 import { PostsPageModule } from './pages/posts-page/posts-page.module';
 
@@ -19,6 +20,7 @@ import { PostsPageModule } from './pages/posts-page/posts-page.module';
     BrowserAnimationsModule,
     HttpClientModule,
     CoreModule,
+    LoginPageModule,
     HomePageModule,
     PostsPageModule,
     AppRoutingModule,

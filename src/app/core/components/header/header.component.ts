@@ -10,8 +10,4 @@ export class HeaderComponent implements OnInit {
   constructor(public loginService: LoginService) {}
 
   ngOnInit(): void {}
-
-  onLogin() {
-    this.loginService.login();
-  }
 }
