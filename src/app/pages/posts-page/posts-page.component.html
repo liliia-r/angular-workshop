@@ -26,9 +26,11 @@
 
 <h2 *ngIf="isLoading$ | async" class="text-2xl text-blue-400 text-center">Loading...</h2>
 
+<app-add-post></app-add-post>
+
 <app-post-card
   (delete)="onDeletePost($event)"
-  *ngFor="let item of data$ | async as posts; even as isEven"
+  *ngFor="let item of data$ | async as posts$; even as isEven"
   [item]="item"
   [isEven]="isEven"
 ></app-post-card>

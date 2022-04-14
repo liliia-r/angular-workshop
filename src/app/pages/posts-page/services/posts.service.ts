@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Post } from '../models';
-import { BehaviorSubject, catchError, EMPTY, tap } from 'rxjs';
+import { BehaviorSubject, catchError, EMPTY, tap, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +32,24 @@ export class PostsService {
       }),
       catchError(() => {
         const message = "Error, Couldn't get posts";
+        this._isLoading$.next(false);
+        this._error$.next(message);
+        return EMPTY;
+      })
+    );
+  }
+
+  addPost(post: Post) {
+    this._isLoading$.next(true);
+
+    const link = this.ROOT_URL + 'posts/';
+
+    return this.http.post<Post>(link, post).pipe(
+      map((post) => {
+        this._posts$.getValue().unshift(post);
+      }),
+      catchError(() => {
+        const message = "Error, Couldn't add posts";
         this._isLoading$.next(false);
         this._error$.next(message);
         return EMPTY;

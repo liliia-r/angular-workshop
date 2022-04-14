@@ -1,14 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import {
-  EMPTY,
-  Subscription,
-  Observable,
-  map,
-  tap,
-  catchError,
-  of,
-} from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 import { Post } from './models';
 import { PostsService } from './services';
@@ -46,7 +38,6 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
   onDeletePost(post: Post) {
     this.postsService.deletePost(post).subscribe();
-    // this.data = this.postsService.getPosts();
   }
 
   ngOnDestroy() {
