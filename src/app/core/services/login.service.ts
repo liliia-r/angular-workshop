@@ -1,24 +1,30 @@
-import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { BehaviorSubject, of } from 'rxjs';
+import { User } from '../models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  public _user$ = new BehaviorSubject({ id: 1, name: '', email: '' });
+  private _user$ = new BehaviorSubject<User | null>(null);
   user$ = this._user$.asObservable();
 
-  private _isLoggedIn$ = new BehaviorSubject<boolean>(false);
-  isLoggedIn$ = this._isLoggedIn$.asObservable();
+  isLoggedIn = false;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
-  login(name: string, email: string) {
-    this._user$.next({ id: 1, name: name, email: email });
-    this._isLoggedIn$.next(true);
+  login({ name, email }: { name: string; email: string }) {
+    const user = {
+      id: 1,
+      name,
+      email,
+    };
+    this._user$.next(user);
   }
 
   logout() {
-    this._isLoggedIn$.next(false);
+    this._user$.next(null);
+    this.router.navigate(['/login']);
   }
 }

@@ -1,0 +1,19 @@
+<div class="my-8">
+  <a class="blog-btn mr-3" routerLink="/post/1">Load Post 1 </a>
+  <a class="blog-btn mr-4" routerLink="/post/2">Load Post 2 </a>
+  <a class="blog-btn" routerLink="/post/3">Load Post 3 </a>
+</div>
+
+<h2>{{ postId }}</h2>
+
+<!-- <h3 class="text-blue-600">Is Ok</h3>
+<h3>
+  <pre>{{post | json}}</pre>
+</h3> -->
+
+<h3 class="text-blue-600">Perfect!</h3>
+<h3>
+  <pre>{{ post$ | async | json }}</pre>
+</h3>
+
+<h2 *ngIf="error$ | async as error" class="text-2xl text-red-700 text-center">{{ error }}</h2>

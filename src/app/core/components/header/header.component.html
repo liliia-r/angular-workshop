@@ -1,17 +1,31 @@
-<header class="shadow-md py-4 bg-white">
-  <div class="container mx-auto flex items-center justify-between min-h-[2rem]">
+<nav class="shadow-md py-1 bg-white">
+  <div class="container mx-auto flex items-center justify-between min-h-[3rem]">
     <div class="mr-6">
-      <a href="#" class="brand-logo">Angular <span class="text-blue-500">Blog</span></a>
+      <a routerLink="/" class="brand-logo">Angular <span class="text-blue-500">Blog</span></a>
     </div>
-
-    <ng-container *ngIf="loginService.isLoggedIn$ | async; else elseBlock">
+    <ng-container *ngIf="user$ | async as user">
       <app-nav-list class="flex-1 flex"></app-nav-list>
 
-      <app-dropdown-menu></app-dropdown-menu>
-    </ng-container>
+      <div class="flex items-center">
+        <button [matMenuTriggerFor]="menu" type="button" class="flex items-center focus:outline-none mr-3">
+          <div class="w-8 h-8 overflow-hidden border-2 border-gray-400 rounded-full bg-blue-500"></div>
+        </button>
+      </div>
 
-    <ng-template #elseBlock>
-      <app-auth-button [btnText]="'Login'"></app-auth-button>
-    </ng-template>
+      <mat-menu #menu="matMenu" xPosition="before">
+        <button mat-menu-item>
+          <mat-icon>person</mat-icon>
+          <span>{{ user.name }}</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>email</mat-icon>
+          <span>{{ user.email }}</span>
+        </button>
+        <button mat-menu-item (click)="onLogOut()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </ng-container>
   </div>
-</header>
+</nav>

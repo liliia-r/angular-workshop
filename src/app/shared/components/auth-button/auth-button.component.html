@@ -1,6 +1,8 @@
 <button
-  class="hover:bg-blue-400 group flex-initial items-center rounded-md bg-blue-500 text-white text-sm font-medium pl-2 pr-3 py-2 shadow-sm"
+  [disabled]="disabled"
+  [ngStyle]="{ width: fullWidth ? '100%' : 'auto' }"
+  class="disabled:bg-zinc-400 hover:bg-blue-400 text-center leading-none rounded-md bg-blue-500 text-white text-sm font-medium px-4 py-3 shadow-sm"
   (click)="onClick()"
 >
-  {{btnText}}
+  <ng-content></ng-content>
 </button>

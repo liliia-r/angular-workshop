@@ -7,7 +7,13 @@ import { LoginService } from '../../services/login.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  user$ = this.loginService.user$;
+
   constructor(public loginService: LoginService) {}
 
   ngOnInit(): void {}
+
+  onLogOut() {
+    this.loginService.logout();
+  }
 }

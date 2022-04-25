@@ -5,12 +5,11 @@ import { AuthButtonModule } from 'src/app/shared/components/auth-button/auth-but
 import { NavListComponent } from './nav-list/nav-list.component';
 
 import { RouterModule } from '@angular/router';
-import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
-  declarations: [HeaderComponent, NavListComponent, DropdownMenuComponent],
+  declarations: [HeaderComponent, NavListComponent],
   imports: [
     CommonModule,
     AuthButtonModule,

@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Subscription, Observable } from 'rxjs';
-
+import { Observable, Subscription } from 'rxjs';
 import { Post } from './models';
 import { PostsService } from './services';
 
@@ -15,9 +14,6 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   isLoading$!: Observable<boolean>;
   error$!: Observable<string>;
 
-  data!: Post[];
-  loading: boolean = false;
-  error!: string;
   sub!: Subscription;
 
   searchForm = this.fb.group({
@@ -27,13 +23,21 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   constructor(private postsService: PostsService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.loading = true;
+    // this.sub = this.searchForm?.valueChanges.subscribe((formValue) => {
+    //   this.postsService.searchPost(formValue.query);
+    //   this.data = this.postsService.getPosts();
+    // });
+
+    // INIT POSTS FROM SERVER
+    this.postsService.getPostsApi().subscribe();
 
     this.data$ = this.postsService.posts$;
-    this.error$ = this.postsService.error$;
     this.isLoading$ = this.postsService.isLoading$;
+    this.error$ = this.postsService.error$;
+  }
 
-    this.postsService.getPostsApi().subscribe();
+  onAddPost(newPost: { title: string; body: string }) {
+    this.postsService.createPost(newPost).subscribe();
   }
 
   onDeletePost(post: Post) {

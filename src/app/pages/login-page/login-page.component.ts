@@ -1,8 +1,7 @@
-import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-
-import { LoginService } from '../../core/services/login.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LoginService } from 'src/app/core/services/login.service';
 
 @Component({
   selector: 'app-login-page',
@@ -10,29 +9,29 @@ import { LoginService } from '../../core/services/login.service';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent implements OnInit {
-  form: FormGroup;
-  name: string = '';
-  email: string = '';
+  loginForm = this.fb.group({
+    name: ['', [Validators.required, Validators.minLength(3)]],
+    email: ['', [Validators.required, Validators.email]],
+  });
 
-  constructor(private router: Router, private loginService: LoginService) {}
-
-  ngOnInit(): void {
-    this.form = new FormGroup({
-      name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-    });
+  get nameControl() {
+    return this.loginForm.get('name');
   }
 
-  submit() {
-    if (this.form.valid) {
-      const formData = { ...this.form.value };
-      this.name = formData.name;
-      this.email = formData.email;
+  get emailControl() {
+    return this.loginForm.get('email');
+  }
 
-      this.loginService.login(this.name, this.email);
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private loginService: LoginService
+  ) {}
 
-      this.router.navigateByUrl('/posts');
-      this.form.reset();
-    }
+  ngOnInit(): void {}
+
+  onSubmit() {
+    this.loginService.login(this.loginForm.value);
+    this.router.navigate(['/posts']);
   }
 }

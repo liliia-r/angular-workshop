@@ -1,3 +1,7 @@
+:host {
+  @apply flex flex-1 justify-center items-center;
+}
+
 button[disabled] {
   background-color: #a5d7f5;
 }

@@ -8,11 +8,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 export class HomePageComponent implements OnInit, OnDestroy {
   constructor() {}
 
-  ngOnInit(): void {
-    console.log('Home OnInit')
-  }
+  ngOnInit(): void {}
 
-  ngOnDestroy() {
-    console.log('Home Destroy')
-  }
+  ngOnDestroy() {}
 }

@@ -18,6 +18,6 @@ export class PostCardComponent implements OnInit {
   ngOnInit(): void {}
 
   onDelete(post: Post) {
-    this.delete.emit(post)
+    this.delete.emit(post);
   }
 }

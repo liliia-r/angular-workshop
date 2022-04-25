@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, catchError, EMPTY, switchMap, tap } from 'rxjs';
 import { Post } from '../models';
-import { BehaviorSubject, catchError, EMPTY, tap, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -24,11 +24,10 @@ export class PostsService {
     this._isLoading$.next(true);
 
     const link = this.ROOT_URL + 'posts';
-
     return this.http.get<Post[]>(link).pipe(
       tap((data) => {
         this._isLoading$.next(false);
-        this._posts$.next(data.slice(10, 20));
+        this._posts$.next(data);
       }),
       catchError(() => {
         const message = "Error, Couldn't get posts";
@@ -39,33 +38,10 @@ export class PostsService {
     );
   }
 
-  addPost(post: Post) {
-    this._isLoading$.next(true);
-
-    const link = this.ROOT_URL + 'posts/';
-
-    return this.http.post<Post>(link, post).pipe(
-      map((post) => {
-        this._posts$.getValue().unshift(post);
-      }),
-      catchError(() => {
-        const message = "Error, Couldn't add posts";
-        this._isLoading$.next(false);
-        this._error$.next(message);
-        return EMPTY;
-      })
-    );
-  }
-
-  resetPosts() {
-    this._posts$.next([]);
-  }
-
   deletePost(post: Post) {
     this._isLoading$.next(true);
 
     const link = this.ROOT_URL + 'posts/' + post.id;
-
     return this.http.delete<Post>(link).pipe(
       tap(() => {
         this._isLoading$.next(false);
@@ -79,6 +55,36 @@ export class PostsService {
         return EMPTY;
       })
     );
+  }
+
+  createPost({ title, body }: { title: string; body: string }) {
+    this._isLoading$.next(true);
+
+    const link = this.ROOT_URL + 'posts';
+    const userId = 1;
+    const payload = {
+      title,
+      body,
+      userId,
+    };
+
+    return this.http.post<Post>(link, payload).pipe(
+      tap((post) => {
+        this._isLoading$.next(false);
+        const posts = [...this._posts$.value, post];
+        this._posts$.next(posts);
+      }),
+      catchError(() => {
+        const message = "Error, Couldn't Delete";
+        this._isLoading$.next(false);
+        this._error$.next(message);
+        return EMPTY;
+      })
+    );
+  }
+
+  resetPosts() {
+    this._posts$.next([]);
   }
 
   searchPost(value: string): void {

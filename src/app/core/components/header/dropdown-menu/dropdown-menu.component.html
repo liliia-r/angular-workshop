@@ -1,9 +1,0 @@
-<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-  <mat-icon class="material-icon">list</mat-icon>
-</button>
-<mat-menu #menu="matMenu">
-  <div class="flex flex-col items-center">
-    <p class="mr-3 text-sm font-medium text-gray-800">{{ (user$ | async)?.name }}</p>
-    <app-auth-button [btnText]="'Logout'" (click)="onLogOut()"></app-auth-button>
-  </div>
-</mat-menu>
