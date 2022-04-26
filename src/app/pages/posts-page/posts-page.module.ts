@@ -9,9 +9,19 @@ import { PostFormComponent } from './components/post-form/post-form.component';
 import { RouterModule } from '@angular/router';
 
 import { PostsPageRoutingModule } from './posts-page-routing.module';
+import { AllPostsPageComponent } from './pages/all-posts-page/all-posts-page.component';
+import { MyPostsPageComponent } from './pages/my-posts-page/my-posts-page.component';
+import { PostsNavComponent } from './components/posts-nav/posts-nav.component';
 
 @NgModule({
-  declarations: [PostsPageComponent, PostCardComponent, PostFormComponent],
+  declarations: [
+    PostsPageComponent,
+    PostCardComponent,
+    PostFormComponent,
+    AllPostsPageComponent,
+    MyPostsPageComponent,
+    PostsNavComponent,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,

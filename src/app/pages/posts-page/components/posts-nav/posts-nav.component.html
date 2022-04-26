@@ -1,0 +1,25 @@
+<div
+  class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700"
+>
+  <ul class="flex flex-wrap -mb-px">
+    <li class="mr-2">
+      <a
+        routerLink="/posts/all-posts"
+        [routerLinkActive]="['text-blue-600', 'border-blue-600']"
+        class="transition-colors duration-100 inline-block p-4 rounded-t-lg border-b-2 hover:text-gray-600 hover:border-gray-300"
+      >
+        All Posts
+      </a>
+    </li>
+    <li class="mr-2">
+      <a
+        routerLink="/posts/my-posts"
+        [routerLinkActive]="['text-blue-600', 'border-blue-600']"
+        class="transition-colors duration-100 inline-block p-4 rounded-t-lg border-b-2 hover:text-gray-600 hover:border-gray-300"
+      >
+        My Posts
+      </a>
+    </li>
+  </ul>
+</div>
+

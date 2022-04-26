@@ -10,7 +10,6 @@ import { CoreModule } from './core/core.module';
 // Components
 import { AppComponent } from './app.component';
 import { HomePageModule } from './pages/home-page/home-page.module';
-import { PostsPageModule } from './pages/posts-page/posts-page.module';
 import { PostPageModule } from './pages/post-page/post-page.module';
 
 @NgModule({
@@ -22,7 +21,6 @@ import { PostPageModule } from './pages/post-page/post-page.module';
     HttpClientModule,
     CoreModule,
     HomePageModule,
-    PostsPageModule,
     PostPageModule,
     // Go last
     AppRoutingModule,

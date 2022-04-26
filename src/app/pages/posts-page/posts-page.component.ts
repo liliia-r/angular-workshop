@@ -23,13 +23,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   constructor(private postsService: PostsService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    // this.sub = this.searchForm?.valueChanges.subscribe((formValue) => {
-    //   this.postsService.searchPost(formValue.query);
-    //   this.data = this.postsService.getPosts();
-    // });
-
-    // INIT POSTS FROM SERVER
-    this.postsService.getPostsApi().subscribe();
+    this.postsService.getAllPosts().subscribe();
 
     this.data$ = this.postsService.posts$;
     this.isLoading$ = this.postsService.isLoading$;

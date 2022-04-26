@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Post } from '../../models';
-import { PostsService } from '../../services';
 
 @Component({
   selector: 'app-post-card',

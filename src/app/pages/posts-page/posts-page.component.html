@@ -1,4 +1,4 @@
-<h1 class="page-title">Post</h1>
+<h1 class="page-title">Posts</h1>
 
 <form class="relative max-w-lg mb-4 shadow-md" [formGroup]="searchForm">
   <svg
@@ -22,18 +22,12 @@
     placeholder="Filter projects..."
   />
 </form>
-<h2 *ngIf="isLoading$ | async" class="text-2xl text-blue-400 text-center">Loading...</h2>
 
 <div class="grid grid-cols-3 gap-4">
   <!-- COL-1 -->
   <div class="col-span-2">
-    <app-post-card
-      class="mb-4 block"
-      (delete)="onDeletePost($event)"
-      *ngFor="let item of data$ | async as posts; even as isEven"
-      [item]="item"
-      [isEven]="isEven"
-    ></app-post-card>
+    <app-posts-nav class="mb-4"></app-posts-nav>
+    <router-outlet></router-outlet>
   </div>
 
   <!-- COL-2 -->
@@ -41,5 +35,3 @@
     <app-post-form (submitPostForm)="onAddPost($event)"></app-post-form>
   </div>
 </div>
-
-<h2 *ngIf="error$ | async as error" class="text-2xl text-red-700 text-center">{{ error }}</h2>

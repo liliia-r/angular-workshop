@@ -20,7 +20,7 @@ export class PostsService {
 
   constructor(private http: HttpClient) {}
 
-  getPostsApi() {
+  getAllPosts() {
     this._isLoading$.next(true);
 
     const link = this.ROOT_URL + 'posts';
@@ -30,12 +30,31 @@ export class PostsService {
         this._posts$.next(data);
       }),
       catchError(() => {
-        const message = "Error, Couldn't get posts";
+        const message = "Error, Couldn't get all posts";
         this._isLoading$.next(false);
         this._error$.next(message);
         return EMPTY;
       })
     );
+  }
+
+  getMyPosts(userId: string | number){
+    this._isLoading$.next(true);
+
+    const link = `${this.ROOT_URL}posts?userId=${userId}`;
+
+    return this.http.get<Post[]>(link).pipe(
+      tap((data) => {
+        this._isLoading$.next(false);
+        this._posts$.next(data);
+      }),
+      catchError(() => {
+        const message = "Error, Couldn't get my posts";
+        this._isLoading$.next(false);
+        this._error$.next(message);
+        return EMPTY;
+      })
+    )
   }
 
   deletePost(post: Post) {
@@ -75,7 +94,7 @@ export class PostsService {
         this._posts$.next(posts);
       }),
       catchError(() => {
-        const message = "Error, Couldn't Delete";
+        const message = "Error, Couldn't Create";
         this._isLoading$.next(false);
         this._error$.next(message);
         return EMPTY;
@@ -85,6 +104,8 @@ export class PostsService {
 
   resetPosts() {
     this._posts$.next([]);
+    this._isLoading$.next(false);
+    this._error$.next('');
   }
 
   searchPost(value: string): void {

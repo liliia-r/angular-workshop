@@ -1,0 +1,12 @@
+<h2 *ngIf="isLoading$ | async" class="text-2xl text-blue-400 text-center">Loading...</h2>
+
+<app-post-card
+  class="mb-4 block"
+  (delete)="onDeletePost($event)"
+  *ngFor="let item of data$ | async as posts; even as isEven"
+  [item]="item"
+  [isEven]="isEven"
+></app-post-card>
+
+<h2 *ngIf="error$ | async as error" class="text-2xl text-red-700 text-center">{{ error }}</h2>
+
